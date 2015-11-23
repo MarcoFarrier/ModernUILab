@@ -45,11 +45,11 @@ public class MainActivity extends AppCompatActivity {
         s.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                //for non-white LinearLayouts, set colour to be interpolated between based on SeekBar position
                 red.setBackgroundColor(getBlendedColor(redColor, yellowColor, progress));
                 yellow.setBackgroundColor(getBlendedColor(yellowColor, whiteColor, progress));
                 blue.setBackgroundColor(getBlendedColor(blueColor, greenColor, progress));
                 green.setBackgroundColor(getBlendedColor(greenColor, blueColor, progress));
-                white.setBackgroundColor(getBlendedColor(whiteColor, redColor, progress));
             }
 
             @Override
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             public int getBlendedColor(int color1, int color2, int alpha) {
-                double alphaToUse = alpha / 100.0;
+                double alphaToUse = alpha / 100.0; //convert alpha to bewteen zero and 1
                 int red1 = Color.red(color1);
                 int green1 = Color.green(color1);
                 int blue1 = Color.blue(color1);
@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 int green2 = Color.green(color2);
                 int blue2 = Color.blue(color2);
 
+                //interpolate RGB, 0 is color1, 1 is color2, interpolate inbetween
                 int red3 = (int) ((1 - alphaToUse) * red1 + alphaToUse * red2);
                 int blue3 = (int) ((1 - alphaToUse) * blue1 + alphaToUse * blue2);
                 int green3 = (int) ((1 - alphaToUse) * green1 + alphaToUse * green2);
